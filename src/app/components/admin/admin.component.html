@@ -1,0 +1,28 @@
+<div class="card-container">
+    <a class="btn card" (click)="onNavigate('managePassenger')">
+        <span>Manage Passengers</span>
+  
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    
+    </a>
+  
+    <a class="btn card" (click)="onNavigate('addPassenger')">
+      <span>Add Passengers</span>
+
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    
+    </a>
+
+    <a class="btn card" (click)="onNavigate('manageFlightServices')">
+      <span>Manage Flight Service</span>
+
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </a>
+</div>
+<div class="container mat-elevation-z8">
+    <div style="text-align: center; padding-top: 10px;">
+        <span style="color: rgb(1,1,1);"><b> {{ flight.Flight_Name }} Flight: {{ flight.flight_id }} from {{ flight.Source }} to {{ flight.Destination }}</b></span>
+    </div>
+    <hr>
+    <app-passenger [flight]='flight' *ngIf="loadedFeature==='managePassenger'"></app-passenger>
+    <app-add-passenger [flight]='flight' *ngIf="loadedFeature==='addPassenger'" ></app-add-passenger>
+    <app-flight-services [flight]='flight' *ngIf="loadedFeature==='manageFlightServices'" ></app-flight-services>
+</div>

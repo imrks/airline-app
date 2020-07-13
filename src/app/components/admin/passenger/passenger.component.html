@@ -1,0 +1,37 @@
+<table mat-table [dataSource]="dataSourcePassenger">
+  <ng-container matColumnDef="flight_id">
+    <th mat-header-cell *matHeaderCellDef> <b>Flight ID</b> </th>
+    <td mat-cell *matCellDef="let element"> {{element.flight_id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Name">
+    <th mat-header-cell *matHeaderCellDef> <b>Passenger Name</b> </th>
+    <td mat-cell *matCellDef="let element"> Rohan Shaw </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Seat_Number">
+    <th mat-header-cell *matHeaderCellDef> <b>Seat No.</b> </th>
+    <td mat-cell *matCellDef="let element"> {{element?.Seat_Number || 'Not Selected'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Check_In">
+    <th mat-header-cell *matHeaderCellDef> <b>Check In Status</b> </th>
+    <td mat-cell *matCellDef="let element"> {{element.Check_In ? 'Checked In' : 'Not Checked In'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="DOB">
+    <th mat-header-cell *matHeaderCellDef> <b>Data of Birth</b> </th>
+    <td mat-cell *matCellDef="let element"> {{element.DOB.seconds * 1000 | date:'MM-dd-yyyy'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Actions">
+    <th mat-header-cell *matHeaderCellDef> <b>Manage</b> </th>
+    <td mat-cell *matCellDef="let row"> 
+      <a [routerLink]="['/passengers']" title="Edit Passengers"><i class="material-icons">group</i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumnsPassenger"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumnsPassenger;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>

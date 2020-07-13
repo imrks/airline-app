@@ -1,0 +1,64 @@
+<div class="container">
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+              <label for="name">Name: <span class="lblError">*</span></label>
+              <div class="controls">
+                <input type="text" id="name" placeholder="Name" class="form-control" formControlName="name">
+                <p class="lblError" *ngIf="signupForm.get('name').hasError('required')
+                            && !signupForm.get('name').pristine">
+                    Name is Required
+                </p>
+              </div>
+        </div>
+
+        <div class="form-group">
+          <label for="user_addesss">Address: <span class="lblError">*</span></label>
+          <div class="controls">
+            <input type="text" id="user_addesss" placeholder="Address" class="form-control" formControlName="user_addesss">
+            <p class="lblError" *ngIf="signupForm.get('user_addesss').hasError('required')
+                        && !signupForm.get('user_addesss').pristine">
+                Address is Required
+            </p>
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
+          <div class="form-check form-check-inline">
+            <input type="radio" id="emailNotification" class="form-check-input" formControlName="user_notification" value="email">
+            <label class="form-check-label" for="emailNotification">Email</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input type="radio" id="phoneNotification" class="form-check-input" formControlName="user_notification" value="phone">
+            <label class="form-check-label" for="phoneNotification">Phone</label>
+          </div>
+        </div> -->
+        <div class="form-group">
+          <!-- Mobile -->
+          <label for="phone">Phone <span class="lblError">*</span></label>
+          <div class="controls">
+            <input type="number" id="phone" placeholder="Phone" class="form-control" formControlName="user_phone">
+            <p class="lblError" *ngIf="signupForm.get('user_phone').hasError('required') && !signupForm.get('user_phone').pristine">
+                Phone is Required
+            </p>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Date of Birth <span class="lblError">*</span></label>
+          <div class="controls">
+            <input type="number" id="DOB" placeholder="Phone" class="form-control" formControlName="user_phone">
+            <p class="lblError" *ngIf="signupForm.get('user_phone').hasError('required') && !signupForm.get('user_phone').pristine">
+                Phone is Required
+            </p>
+          </div>
+        </div>
+
+        <div style="text-align: center;" class="form-group">
+          <button class="btn btn-primary" type="submit" [disabled]="signupForm.invalid"  style="width: 15%">
+            Add
+          </button>
+        </div>
+  </form>`
+</div>
+<br><br><br><br><br><br><br><br>
