@@ -1,3 +1,38 @@
+<form [formGroup]="filterPassenger">
+    <div style="width:20%; float:left; padding-right: 10px;" class="form-group">
+      <div class="controls">
+        <input id="passenger_name" placeholder="Search With Name" class="form-control" (keyup)="applyFilter($event)">
+      </div>
+    </div>
+      <div style="width:20%; float:left; padding-right: 10px;" class="form-group">
+        <div class="controls">
+        <select id="passenger_passport" class="form-control" formControlName="passenger_passport">
+          <option value="null" disabled selected>Passport</option>
+          <option value="1">Passenger With Passport</option>
+          <option value="0">Passenger Without Passport</option>
+        </select>
+      </div>
+      </div> 
+      <div style="width:20%; float:left; padding-right: 10px;" class="form-group">
+        <div class="controls">
+          <select id="passenger_DOB" class="form-control" formControlName="passenger_DOB">
+            <option value="null" disabled selected>Date of Birth</option>
+            <option value="1">Passenger With DOB</option>
+            <option value="0">Passenger Without DOB</option>
+          </select>
+        </div>
+      </div> 
+      <div style="width:20%; float:left; padding-right: 10px;" class="form-group">
+        <div class="controls">
+          <select id="passenger_addrress" class="form-control" formControlName="passenger_addrress">
+            <option value="null" disabled selected>Addrerss</option>
+            <option value="1">Passenger With Address</option>
+            <option value="0">Passenger Without Address</option>
+          </select>
+        </div>
+      </div> 
+<button (click)="Fliter(filterPassenger)" style="width:9%; float:left;" class="btn btn-success">Filter</button> 
+<button (click)="ClearFilter()" style="width:9%; float:right;" class="btn btn-warning">Clear</button> 
 <table mat-table [dataSource]="dataSourcePassenger">
   <ng-container matColumnDef="flight_id">
     <th mat-header-cell *matHeaderCellDef> <b>Flight ID</b> </th>
@@ -6,7 +41,7 @@
 
   <ng-container matColumnDef="Name">
     <th mat-header-cell *matHeaderCellDef> <b>Passenger Name</b> </th>
-    <td mat-cell *matCellDef="let element"> Rohan Shaw </td>
+    <td mat-cell *matCellDef="let element"> {{ element.Name }} </td>
   </ng-container>
 
   <ng-container matColumnDef="Seat_Number">
@@ -27,7 +62,7 @@
   <ng-container matColumnDef="Actions">
     <th mat-header-cell *matHeaderCellDef> <b>Manage</b> </th>
     <td mat-cell *matCellDef="let row"> 
-      <a [routerLink]="['/passengers']" title="Edit Passengers"><i class="material-icons">group</i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a data-backdrop="static" data-keyboard="false" (click)="onEditPassengerForm(row,row.DOB.seconds)" role="button" data-toggle="modal" data-target="#editPassengerModal" title="Edit Passengers"><i class="material-icons">group</i></a>&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
   </ng-container>
 
@@ -35,3 +70,100 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumnsPassenger;"></tr>
 </table>
 <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+<!-- Modal -->
+<div id="editPassengerModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="onCloseModal()" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Passenger</h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editPassengerForm">
+          <div style="width: 50%;float:left; padding-right:10px">
+            <div class="form-group">
+              <label for="name">Flight ID:</label>
+              <div class="controls">
+                <input disabled id="user_flight_id" class="form-control" formControlName="user_flight_id">
+              </div>
+            </div>
+      
+              <div class="form-group">
+                    <label for="name">Name: <span class="lblError">*</span></label>
+                    <div class="controls">
+                      <input type="text" id="name" placeholder="Name" class="form-control" formControlName="name" >
+                      <p class="lblError" *ngIf="editPassengerForm.get('name').hasError('required')
+                      && !editPassengerForm.get('name').pristine">
+                        Name is Required
+                      </p>
+                    </div>
+              </div>
+      
+              <div class="form-group">
+                <label for="user_addesss">Address: <span class="lblError">*</span></label>
+                <div class="controls">
+                  <input type="text" id="user_addesss" placeholder="Address" class="form-control" formControlName="user_addesss" >
+                  <p class="lblError" *ngIf="editPassengerForm.get('user_addesss').hasError('required')
+                        && !editPassengerForm.get('user_addesss').pristine">
+                       Address is Required
+                  </p>
+                </div>
+              </div>
+          </div>
+          <div style="width: 50%;float:right">
+              <div class="form-group">
+                <!-- Mobile -->
+                <label for="phone">Phone <span class="lblError">*</span></label>
+                <div class="controls">
+                  <input type="number" id="phone" placeholder="Phone" class="form-control" formControlName="user_phone">
+                  <p class="lblError" *ngIf="editPassengerForm.get('user_phone').hasError('required') && !editPassengerForm.get('user_phone').pristine">
+                    Phone is Required
+                  </p>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="phone">Date of Birth <span class="lblError">*</span></label>
+                <div class="controls">
+                  <input type="date" id="user_dob" placeholder="Date of Birth" class="form-control" formControlName="user_dob">
+                  <p class="lblError" *ngIf="editPassengerForm.get('user_dob').hasError('required') && !editPassengerForm.get('user_dob').pristine">
+                    DOB is Required
+                   </p>
+                </div>
+              </div>
+          </div>
+          <div>
+            <mat-slide-toggle formControlName="user_infants">
+            Infants
+                  </mat-slide-toggle>&nbsp;&nbsp;
+            <mat-slide-toggle formControlName="user_wheelchair">
+            WheelChair
+                  </mat-slide-toggle>&nbsp;&nbsp;
+            <mat-slide-toggle (change)="toggle($event)" [checked]="passport">
+            Passport
+                  </mat-slide-toggle>&nbsp;&nbsp;
+            <div style="width: 50%;float:left; padding-left:10px" class="form-group" *ngIf="passport===true">
+                    <label for="name">Passport Details:</label>
+                    <div class="controls">
+                      <input type="text" id="user_passport" placeholder="Passport Number" class="form-control" formControlName="user_passport">
+                    </div>
+            </div>
+          </div>
+          
+              <div style="text-align: center;" class="form-group">
+                <button (click)="EditPassenger(editPassengerForm)" [disabled]="editPassengerForm.invalid" class="btn btn-primary"  style="width: 15%">
+                  Edit
+                </button>
+              </div>
+        </form>`
+      </div>
+      <div class="modal-footer">
+        <button (click)="onCloseModal()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

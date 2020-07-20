@@ -1,1 +1,197 @@
-<p>flight-services works!</p>
+<ul class="nav nav-tabs nav-justified">
+    <li [ngClass]="{'active': id === 1 }" (click)="addClass(1)"><a role="button" (click)="flightServiceTab('ancillary')">Ancillary Service</a></li>
+    <li [ngClass]="{'active': id === 2 }" (click)="addClass(2)"><a role="button" (click)="flightServiceTab('meals')">Meals</a></li>
+    <li [ngClass]="{'active': id === 3 }" (click)="addClass(3)"><a role="button" (click)="flightServiceTab('shopping_item')">Shopping Item</a></li>
+  </ul>
+
+  <div *ngIf="link=='shopping_item'">
+    <div class="card">
+        <div class="card-body">
+                <table class="table table-striped" *ngIf="flight.Shopping_Item.length>0 || editFormTitle==='AddShoppingItem'">
+                <thead>
+                 <tr>
+                 <th>Item Type</th>
+                 <th>Item Name</th>
+                 <th>Price</th>
+                 <th>Actions</th>
+                 </tr>
+                 </thead>
+                 <ng-container>
+                 <tbody *ngFor="let row of flight.Shopping_Item">
+                 <tr *ngIf="editFormTitle!=='EditShoppingItem'">
+                 <td>{{ row.item_type }}</td>
+                 <td>{{ row.item_name }}</td>
+                 <td>{{ row.item_price }}</td>
+                 <td>
+                 <i title="Edit" class="material-icons"  style="cursor: pointer; color:blue;" (click)="AddEditForm('EditShoppingItem'); SetShoppingValues(row);" >edit</i>
+                 <span title="Delete" class="material-icons" style="cursor: pointer; color: red;" mat-tooltip="Delete Item" (click)="removeShoppingItem(row)" >cancel</span >
+                 </td>
+                 </tr>
+                </tbody>
+                </ng-container>
+                <tbody class="form-group" *ngIf="editFormTitle==='AddShoppingItem'">
+                 <tr >
+                    <td>
+                    <input placeholder="Item Type" [(ngModel)]="add_item_type" class="form-control" type="text" > 
+                    </td>
+                    <td>
+                    <input placeholder="Item Name" [(ngModel)]="add_item_name" class="form-control"  type="text"> 
+                    </td>
+                    <td>
+                    <input placeholder="Item Price" [(ngModel)]="add_item_price" class="form-control" type="number" > 
+                    </td>
+                    <td>
+                    <button [disabled]="!add_item_type || !add_item_name || !add_item_price" class="btn btn-success" (click)="AddShoppingItem(add_item_type,add_item_name, add_item_price)">Save</button>
+                    </td>
+                 </tr>
+                 </tbody>
+                 <tbody class="form-group" *ngIf="editFormTitle==='EditShoppingItem'">
+                    <tr >
+                       <td>
+                       <input placeholder="Item Type" [(ngModel)]="add_item_type" class="form-control" type="text" > 
+                       </td>
+                       <td>
+                       <input placeholder="Item Name" [(ngModel)]="add_item_name" class="form-control"  type="text"> 
+                       </td>
+                       <td>
+                       <input placeholder="Item Price" [(ngModel)]="add_item_price" class="form-control" type="number" > 
+                       </td>
+                       <td>
+                       <button [disabled]="!add_item_type || !add_item_name || !add_item_price" class="btn btn-success" (click)="EditShoppingItem(add_item_type,add_item_name, add_item_price)">Save</button>
+                       </td>
+                    </tr>
+                    </tbody>
+                 </table>
+                 <ng-container *ngIf="flight.Shopping_Item.length==0">
+                        <br><br><h3 style="text-align: center;"><strong>No Items For this Flight</strong></h3>
+                 </ng-container>
+                </div>
+            </div>
+            <div style="float: right; ">
+                <button class="btn btn-primary" (click)="AddEditForm('AddShoppingItem')">Add Items</button> | 
+                <button class="btn btn-warning" (click)="AddEditForm(''); destroySetValues();" >Cancel</button>
+            </div>
+            <br><br><br>
+    </div>
+    <div *ngIf="link=='ancillary'">
+        <div class="card">
+            <div class="card-body">
+                    <table class="table table-striped" *ngIf="flight.Ancillary.length>0 || editFormTitle==='AddAncillary'">
+                    <thead>
+                     <tr>
+                     <th>Ancillary Service Name</th>
+                     <th>Ancillary Service Price</th>
+                     <th>Actions</th>
+                     </tr>
+                     </thead>
+                     <ng-container >
+                     <tbody *ngFor="let row of flight.Ancillary">
+                     <tr *ngIf="editFormTitle!=='EditAncillaryItem'">
+                     <td>{{ row.ancillary_name }}</td>
+                     <td>{{ row.ancillary_price }}</td>
+                     <td>
+                     <i title="Edit" class="material-icons"  style="cursor: pointer; color:blue;" (click)="AddEditForm('EditAncillaryItem'); SetAncillaryValues(row);" >edit</i>
+                     <span title="Delete" class="material-icons" style="cursor: pointer; color: red;" mat-tooltip="Delete Item" (click)="removeAncillary(row);" >cancel</span >
+                     </td>
+                     </tr>
+                    </tbody>
+                    </ng-container>
+                    <tbody class="form-group" *ngIf="editFormTitle==='AddAncillary'">
+                        <tr >
+                               <td>
+                               <input placeholder="Ancillary Service Name" [(ngModel)]="add_ancillary_name" class="form-control" type="text" > 
+                               </td>
+                               <td>
+                               <input placeholder="Ancillary Service Price" [(ngModel)]="add_ancillary_price" class="form-control" type="number"> 
+                               </td>
+                               <td>
+                                <button [disabled]="!add_ancillary_name || !add_ancillary_price" class="btn btn-success" (click)="AddAncillary(add_ancillary_name, add_ancillary_price)">Save</button>
+                               </td>
+                        </tr>
+                        </tbody>
+                        <tbody class="form-group" *ngIf="editFormTitle==='EditAncillaryItem'">
+                            <tr >
+                                   <td>
+                                   <input placeholder="Ancillary Service Name" [(ngModel)]="add_ancillary_name" class="form-control" type="text" > 
+                                   </td>
+                                   <td>
+                                   <input placeholder="Ancillary Service Price" [(ngModel)]="add_ancillary_price" class="form-control" type="number"> 
+                                   </td>
+                                   <td>
+                                    <button [disabled]="!add_ancillary_name || !add_ancillary_price" class="btn btn-success" (click)="EditAncillary(add_ancillary_name, add_ancillary_price)">Save</button>
+                                   </td>
+                            </tr>
+                            </tbody>
+                     </table>
+                     <ng-container *ngIf="flight.Ancillary.length==0">
+                        <br><br><h3 style="text-align: center;"><strong>No Ancillary Services For this Flight</strong></h3>
+                     </ng-container>
+                    </div>
+                </div>
+                <div style="float: right;">
+                    <button class="btn btn-primary" (click)="AddEditForm('AddAncillary')">Add Items</button> | 
+                    <button class="btn btn-warning" (click)="AddEditForm(''); destroySetValues();" >Cancel</button>
+                </div>
+                <br><br><br>
+    </div>
+    <div *ngIf="link=='meals'">
+        <div class="card">
+            <div class="card-body">
+                    <table class="table table-striped" *ngIf="flight.Meals.length>0 || editFormTitle==='AddMeal'">
+                    <thead>
+                     <tr> 
+                     <th>Meal Name</th>
+                     <th> Meal Price</th>
+                     <th>Actions</th>
+                     </tr>
+                     </thead>
+                     <ng-container >
+                     <tbody *ngFor="let row of flight.Meals">
+                     <tr *ngIf="editFormTitle!=='EditMealItem'">
+                     <td>{{ row.meal_name }}</td>
+                     <td>{{ row.meal_price }}</td>
+                     <td>
+                     <i title="Edit" class="material-icons"  style="cursor: pointer; color:blue;" (click)="AddEditForm('EditMealItem'); SetMealValues(row);" >edit</i>
+                     <span title="Delete" class="material-icons" style="cursor: pointer; color: red;" mat-tooltip="Delete Item" (click)="removeMeal(row);" >cancel</span >
+                     </td>
+                     </tr>
+                    </tbody>
+                    </ng-container>
+                     <tbody class="form-group" *ngIf="editFormTitle==='AddMeal'">
+                     <tr >
+                            <td>
+                            <input placeholder="Meal Name" [(ngModel)]="add_meal_name" class="form-control"  type="text" > 
+                            </td>
+                            <td>
+                            <input placeholder="Meal Price" [(ngModel)]="add_meal_price" class="form-control" type="number" > 
+                            </td>
+                            <td>
+                                <button [disabled]="!add_meal_name || !add_meal_price" (click)="AddMeals(add_meal_name, add_meal_price)" class="btn btn-success">Save</button>
+                            </td>
+                     </tr>
+                     </tbody>
+                     <tbody class="form-group" *ngIf="editFormTitle==='EditMealItem'">
+                        <tr >
+                               <td>
+                               <input placeholder="Meal Name" [(ngModel)]="add_meal_name" class="form-control"  type="text" > 
+                               </td>
+                               <td>
+                               <input placeholder="Meal Price" [(ngModel)]="add_meal_price" class="form-control" type="number" > 
+                               </td>
+                               <td>
+                                   <button [disabled]="!add_meal_name || !add_meal_price" (click)="EditMeals(add_meal_name, add_meal_price)" class="btn btn-success">Save</button>
+                               </td>
+                        </tr>
+                        </tbody>
+                     </table>
+                     <ng-container *ngIf="flight.Meals.length==0">
+                        <br><br><h3 style="text-align: center;"><strong>No Meals For this Flight</strong></h3>
+                     </ng-container>
+                    </div>
+                </div>
+                <div style="float: right;">
+                    <button class="btn btn-primary" (click)="AddEditForm('AddMeal')" >Add Items</button> | 
+                    <button class="btn btn-warning" (click)="AddEditForm(''); destroySetValues();" >Cancel</button>
+                </div>
+                <br><br><br>
+    </div>

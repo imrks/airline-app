@@ -1,12 +1,20 @@
 <div class="container">
-  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="addPassengerForm">
+		
+    <div style="width: 50%;float:left; padding-right:10px">
+      <div class="form-group">
+        <label for="name">Flight ID:</label>
+        <div class="controls">
+          <input disabled id="user_flight_id" class="form-control" formControlName="user_flight_id">
+        </div>
+      </div>
 
         <div class="form-group">
               <label for="name">Name: <span class="lblError">*</span></label>
               <div class="controls">
                 <input type="text" id="name" placeholder="Name" class="form-control" formControlName="name">
-                <p class="lblError" *ngIf="signupForm.get('name').hasError('required')
-                            && !signupForm.get('name').pristine">
+                <p class="lblError" *ngIf="addPassengerForm.get('name').hasError('required')
+                            && !addPassengerForm.get('name').pristine">
                     Name is Required
                 </p>
               </div>
@@ -16,29 +24,21 @@
           <label for="user_addesss">Address: <span class="lblError">*</span></label>
           <div class="controls">
             <input type="text" id="user_addesss" placeholder="Address" class="form-control" formControlName="user_addesss">
-            <p class="lblError" *ngIf="signupForm.get('user_addesss').hasError('required')
-                        && !signupForm.get('user_addesss').pristine">
+            <p class="lblError" *ngIf="addPassengerForm.get('user_addesss').hasError('required')
+                        && !addPassengerForm.get('user_addesss').pristine">
                 Address is Required
             </p>
           </div>
         </div>
+		</div>
 
-        <!-- <div class="form-group">
-          <div class="form-check form-check-inline">
-            <input type="radio" id="emailNotification" class="form-check-input" formControlName="user_notification" value="email">
-            <label class="form-check-label" for="emailNotification">Email</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input type="radio" id="phoneNotification" class="form-check-input" formControlName="user_notification" value="phone">
-            <label class="form-check-label" for="phoneNotification">Phone</label>
-          </div>
-        </div> -->
+		<div style="width: 50%;float:right">
         <div class="form-group">
           <!-- Mobile -->
           <label for="phone">Phone <span class="lblError">*</span></label>
           <div class="controls">
             <input type="number" id="phone" placeholder="Phone" class="form-control" formControlName="user_phone">
-            <p class="lblError" *ngIf="signupForm.get('user_phone').hasError('required') && !signupForm.get('user_phone').pristine">
+            <p class="lblError" *ngIf="addPassengerForm.get('user_phone').hasError('required') && !addPassengerForm.get('user_phone').pristine">
                 Phone is Required
             </p>
           </div>
@@ -47,18 +47,35 @@
         <div class="form-group">
           <label for="phone">Date of Birth <span class="lblError">*</span></label>
           <div class="controls">
-            <input type="number" id="DOB" placeholder="Phone" class="form-control" formControlName="user_phone">
-            <p class="lblError" *ngIf="signupForm.get('user_phone').hasError('required') && !signupForm.get('user_phone').pristine">
-                Phone is Required
+            <input type="date" id="user_dob" placeholder="Date of Birth" class="form-control" formControlName="user_dob">
+            <p class="lblError" *ngIf="addPassengerForm.get('user_dob').hasError('required') && !addPassengerForm.get('user_dob').pristine">
+                DOB is Required
             </p>
           </div>
         </div>
-
+		</div>
+		<div>
+			<mat-slide-toggle formControlName="user_infants">
+			Infants
+            </mat-slide-toggle>&nbsp;&nbsp;
+			<mat-slide-toggle formControlName="user_wheelchair">
+			WheelChair
+            </mat-slide-toggle>&nbsp;&nbsp;
+			<mat-slide-toggle (change)="toggle($event)">
+			Passport
+            </mat-slide-toggle>&nbsp;&nbsp;
+			<div style="width: 50%;float:left; padding-left:10px" class="form-group" *ngIf="passport===true">
+              <label for="name">Passport Details:</label>
+              <div class="controls">
+                <input type="text" id="user_passport" placeholder="Passport Number" class="form-control" formControlName="user_passport">
+              </div>
+			</div>
+		</div>
+		
         <div style="text-align: center;" class="form-group">
-          <button class="btn btn-primary" type="submit" [disabled]="signupForm.invalid"  style="width: 15%">
+          <button class="btn btn-primary" (click)="AddPassenger(addPassengerForm)" [disabled]="addPassengerForm.invalid"  style="width: 15%">
             Add
           </button>
         </div>
   </form>`
 </div>
-<br><br><br><br><br><br><br><br>

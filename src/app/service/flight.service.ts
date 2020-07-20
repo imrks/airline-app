@@ -33,4 +33,8 @@ export class FlightService {
   getSelectedFlightDetails(){
     return this.flightDetails;
   }
+
+  updateFlightServices(flight: FlightDetails){
+    this.db.doc('flights/'+flight.flight_id).update(flight);
+  }
 }

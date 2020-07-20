@@ -1,0 +1,72 @@
+<form [formGroup]="filterPassengerStaff">
+    <div style="width:20%; float:left; padding-right: 10px;" class="form-group">
+      <div class="controls">
+        <input id="passenger_name" placeholder="Search With Name" class="form-control" (keyup)="applyFilter($event)">
+      </div>
+    </div>
+      <div style="width:20%; float:left; padding-right: 10px;" class="form-group">
+        <div class="controls">
+        <select id="passenger_checkin" class="form-control" formControlName="passenger_checkin">
+          <option value="null" disabled selected>Check In</option>
+          <option value="1">Checked In</option>
+          <option value="0">Not Checked In</option>
+        </select>
+      </div>
+      </div> 
+      <div style="width:20%; float:left; padding-right: 10px;" class="form-group">
+        <div class="controls">
+          <select id="passenger_wheelchair" class="form-control" formControlName="passenger_wheelchair">
+            <option value="null" disabled selected>WheelChair</option>
+            <option value="1">Passenger With WheelChair</option>
+            <option value="0">Passenger Without WheelChair</option>
+          </select>
+        </div>
+      </div> 
+      <div style="width:20%; float:left; padding-right: 10px;" class="form-group">
+        <div class="controls">
+          <select id="passenger_infants" class="form-control" formControlName="passenger_infants">
+            <option value="null" disabled selected>Infants</option>
+            <option value="1">Passenger With Infants</option>
+            <option value="0">Passenger Without Infants</option>
+          </select>
+        </div>
+      </div> 
+<button (click)="Fliter(filterPassengerStaff)" style="width:9%; float:left;" class="btn btn-success">Filter</button> 
+<button (click)="ClearFilter()" style="width:9%; float:right;" class="btn btn-warning">Clear</button> 
+<table mat-table [dataSource]="dataSourcePassenger">
+  <ng-container matColumnDef="flight_id">
+    <th mat-header-cell *matHeaderCellDef> <b>Flight ID</b> </th>
+    <td mat-cell *matCellDef="let element"> {{element.flight_id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Name">
+    <th mat-header-cell *matHeaderCellDef> <b>Passenger Name</b> </th>
+    <td mat-cell *matCellDef="let element"> {{ element.Name }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Seat_Number">
+    <th mat-header-cell *matHeaderCellDef> <b>Seat No.</b> </th>
+    <td mat-cell *matCellDef="let element"> {{element?.Seat_Number || 'Not Selected'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Check_In">
+    <th mat-header-cell *matHeaderCellDef> <b>Check In Status</b> </th>
+    <td mat-cell *matCellDef="let element"> {{element.Check_In ? 'Checked In' : 'Not Checked In'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="DOB">
+    <th mat-header-cell *matHeaderCellDef> <b>Data of Birth</b> </th>
+    <td mat-cell *matCellDef="let element"> {{element.DOB.seconds * 1000 | date:'MM-dd-yyyy'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Actions">
+    <th mat-header-cell *matHeaderCellDef> <b>Manage</b> </th>
+    <td mat-cell *matCellDef="let row"> 
+      <a [routerLink]="['/staff/passenger']" (click)="setSelectedPassenger(row)" role="button" title="Manage Passengers"><i class="material-icons">group</i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumnsPassenger"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumnsPassenger;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>

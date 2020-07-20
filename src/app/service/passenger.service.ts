@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 export class PassengerService {
 
   passengers : Observable<Passenger[]>;
+  passengerDetails: Passenger;
 
   constructor(private flightService: FlightService,private db: AngularFirestore) { }
   flight:FlightDetails;
@@ -19,6 +20,14 @@ export class PassengerService {
   setFlightDetails(){
     this.flight=this.flightService.getSelectedFlightDetails();
     return this.flight;
+   }
+
+   setSelectedPassengerDetails(passengerDetails: Passenger){
+     this.passengerDetails=passengerDetails;
+   }
+
+   getSelectedPassengerDetails(){
+     return this.passengerDetails;
    }
 
    getPassengerDetails(){
@@ -32,5 +41,14 @@ export class PassengerService {
       });
     }))
     return this.passengers;
+  }
+
+  addPassengerDetails(newPassenger:Passenger){
+    let r = Math.random().toString(36).substring(7);
+    this.db.collection('Passengers').doc(r).set(newPassenger);
+  }
+
+  updatePassenger(passenger: Passenger){
+    this.db.doc('Passengers/'+passenger.passenger_id).update(passenger);
   }
 }

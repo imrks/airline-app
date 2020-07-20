@@ -1,0 +1,22 @@
+<div class="card-container">
+    <a class="btn card" (click)="onNavigate('checkin')">
+        <span>Check In / Select Seat</span>
+  
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    
+    </a>
+
+    <a class="btn card" (click)="onNavigate('manageservices')">
+      <span>Select Services</span>
+
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </a>
+</div>
+<div class="container mat-elevation-z8">
+    <div style="text-align: center; padding-top: 10px;">
+        <span style="color: rgb(1,1,1);"><b> Passenger : {{ passengerDetail.Name }} | Check In : {{ passengerDetail.Check_In? 'Checked In' : 'Not Checked In' }} | Seat : {{passengerDetail?.Seat_Number || 'Not Selected'}}</b></span>
+    </div>
+    <hr>
+    <app-passenger-services [flight]="flight" [passengerDetail]='passengerDetail' *ngIf="loadedFeature==='manageservices'"></app-passenger-services>
+    <!-- <app-checkin [flight]='flight' *ngIf="loadedFeature==='checkin'" ></app-checkin> -->
+</div>
+<br><br><br>

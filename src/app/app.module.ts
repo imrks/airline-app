@@ -10,16 +10,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule , ReactiveFormsModule } from '@angular/forms';
+
 import {
   MatTableModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSlideToggleModule,
+  MatTabsModule
 } from '@angular/material';
 import { FlightsComponent } from './components/flights/flights.component';
 import { PassengerComponent } from './components/admin/passenger/passenger.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AddPassengerComponent } from './components/admin/add-passenger/add-passenger.component';
 import { FlightServicesComponent } from './components/admin/flight-services/flight-services.component';
+import { StaffComponent } from './components/staff/staff.component';
+import { ManagePassengersComponent } from './components/staff/manage-passengers/manage-passengers.component';
+import { PassengersComponent } from './components/staff/passengers/passengers.component';
+import { PassengerServicesComponent } from './components/staff/manage-passengers/passenger-services/passenger-services.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +39,10 @@ import { FlightServicesComponent } from './components/admin/flight-services/flig
     AdminComponent,
     AddPassengerComponent,
     FlightServicesComponent,
+    StaffComponent,
+    ManagePassengersComponent,
+    PassengersComponent,
+    PassengerServicesComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +52,10 @@ import { FlightServicesComponent } from './components/admin/flight-services/flig
     BrowserAnimationsModule,
   MatTableModule,
   MatPaginatorModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  MatSlideToggleModule,
+  MatTabsModule,
+  FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,204 @@
+<ul class="nav nav-tabs nav-justified">
+    <li [ngClass]="{'active': id === 1 }" (click)="addClass(1)"><a role="button" (click)="passengerServiceTab('ancillary')">Ancillary Service</a></li>
+    <li [ngClass]="{'active': id === 2 }" (click)="addClass(2)"><a role="button" (click)="passengerServiceTab('meals')">Meals</a></li>
+    <li [ngClass]="{'active': id === 3 }" (click)="addClass(3)"><a role="button" (click)="passengerServiceTab('shopping_item')">Shopping Item</a></li>
+  </ul>
+
+  <div *ngIf="link=='shopping_item'">
+    <div class="card">
+        <div class="card-body">
+                <table class="table table-striped" *ngIf="passengerDetail.Shopping_Item.length>0">
+                <thead>
+                 <tr>
+                 <th>Item Type</th>
+                 <th>Item Name</th>
+                 <th>Price</th>
+                 <th>Delete</th>
+                 </tr>
+                 </thead>
+                 <ng-container>
+                 <tbody *ngFor="let row of passengerDetail.Shopping_Item">
+                 <tr>
+                 <td>{{ row.item_type }}</td>
+                 <td>{{ row.item_name }}</td>
+                 <td>{{ row.item_price }}</td>
+                 <td>
+                 <span (click)="DeleteShoppingService(row)" title="Delete" class="material-icons" style="cursor: pointer; color: red;" mat-tooltip="Delete Item" >cancel</span >
+                 </td>
+                 </tr>
+                </tbody>
+                </ng-container>
+                 </table>
+                 <ng-container *ngIf="passengerDetail.Shopping_Item.length==0">
+                        <br><br><h3 style="text-align: center;"><strong>No Items Added For the Passenger</strong></h3>
+                 </ng-container>
+                </div>
+            </div>
+            <div style="float: right; ">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addServiceModal">Add Items</button>
+            </div>
+            <br><br><br>
+    </div>
+    <div *ngIf="link=='ancillary'">
+        <div class="card">
+            <div class="card-body">
+                    <table class="table table-striped" *ngIf="passengerDetail.Ancillary_Service.length>0">
+                    <thead>
+                     <tr>
+                     <th>Ancillary Service Name</th>
+                     <th>Ancillary Service Price</th>
+                     <th>Delete</th>
+                     </tr>
+                     </thead>
+                     <ng-container >
+                     <tbody *ngFor="let row of passengerDetail.Ancillary_Service">
+                     <tr>
+                     <td>{{ row.ancillary_name }}</td>
+                     <td>{{ row.ancillary_price }}</td>
+                     <td>
+                     <span (click)="DeleteAncillaryService(row)" title="Delete" class="material-icons" style="cursor: pointer; color: red;" mat-tooltip="Delete Item" >cancel</span >
+                     </td>
+                     </tr>
+                    </tbody>
+                    </ng-container>
+                     </table>
+                     <ng-container *ngIf="passengerDetail.Ancillary_Service.length==0">
+                        <br><br><h3 style="text-align: center;"><strong>No Ancillary Services Added For the Passenger</strong></h3>
+                     </ng-container>
+                    </div>
+                </div>
+                <div style="float: right;">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addServiceModal">Add Items</button>
+                </div>
+                <br><br><br>
+    </div>
+    <div *ngIf="link=='meals'">
+        <div class="card">
+            <div class="card-body">
+                    <table class="table table-striped" *ngIf="passengerDetail.Meal.length>0">
+                    <thead>
+                     <tr> 
+                     <th>Meal Name</th>
+                     <th> Meal Price</th>
+                     <th>Delete</th>
+                     </tr>
+                     </thead>
+                     <ng-container >
+                     <tbody *ngFor="let row of passengerDetail.Meal">
+                     <tr>
+                     <td>{{ row.meal_name }}</td>
+                     <td>{{ row.meal_price }}</td>
+                     <td>
+                     <span (click)="DeleteMealService(row)" title="Delete" class="material-icons" style="cursor: pointer; color: red;" mat-tooltip="Delete Item">cancel</span >
+                     </td>
+                     </tr>
+                    </tbody>
+                    </ng-container>
+                     </table>
+                     <ng-container *ngIf="passengerDetail.Meal.length==0">
+                        <br><br><h3 style="text-align: center;"><strong>No Meals Added For the Passenger</strong></h3>
+                     </ng-container>
+                    </div>
+                </div>
+                <div style="float: right;">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addServiceModal" >Add Meals</button>
+                </div>
+                <br><br><br>
+    </div>
+
+    <!-- Modal -->
+<div id="addServiceModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add {{ link }}</h4>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="link=='shopping_item'">
+          <table class="table table-striped" *ngIf="flight.Shopping_Item.length>0">
+            <thead>
+             <tr>
+             <th>Item Type</th>
+             <th>Item Name</th>
+             <th>Price</th>
+             <th>Add</th>
+             </tr>
+             </thead>
+             <ng-container>
+             <tbody *ngFor="let row of flight.Shopping_Item">
+             <tr>
+             <td>{{ row.item_type }}</td>
+             <td>{{ row.item_name }}</td>
+             <td>{{ row.item_price }}</td>
+             <td>
+             <span (click)="AddShoppingService(row)" title="Add" class="material-icons" style="cursor: pointer; color: green;" mat-tooltip="Add Item" >add</span >
+             </td>
+             </tr>
+            </tbody>
+            </ng-container>
+             </table>
+             <ng-container *ngIf="flight.Shopping_Item.length==0">
+                    <br><br><h3 style="text-align: center;"><strong>No Shopping Item Available For This Flight</strong></h3>
+             </ng-container>
+            </div>
+            <div *ngIf="link=='ancillary'">
+            <table class="table table-striped" *ngIf="flight.Ancillary.length>0">
+              <thead>
+               <tr>
+               <th>Ancillary Service Name</th>
+               <th>Ancillary Service Price</th>
+               <th>Add</th>
+               </tr>
+               </thead>
+               <ng-container >
+               <tbody *ngFor="let row of flight.Ancillary">
+               <tr>
+               <td>{{ row.ancillary_name }}</td>
+               <td>{{ row.ancillary_price }}</td>
+               <td>
+               <span (click)="AddAncillaryService(row)" title="Add" class="material-icons" style="cursor: pointer; color: green;" mat-tooltip="Add Item" >add</span >
+               </td>
+               </tr>
+              </tbody>
+              </ng-container>
+               </table>
+               <ng-container *ngIf="flight.Ancillary.length==0">
+                  <br><br><h3 style="text-align: center;"><strong>No Ancillary Services Available For This Flight</strong></h3>
+               </ng-container>
+              </div>
+          <div *ngIf="link=='meals'">
+          <table class="table table-striped" *ngIf="flight.Meals.length>0">
+            <thead>
+             <tr> 
+             <th>Meal Name</th>
+             <th> Meal Price</th>
+             <th>Add</th>
+             </tr>
+             </thead>
+             <ng-container >
+             <tbody *ngFor="let row of flight.Meals">
+             <tr>
+             <td>{{ row.meal_name }}</td>
+             <td>{{ row.meal_price }}</td>
+             <td>
+             <span (click)="AddMealService(row)" title="Add" class="material-icons" style="cursor: pointer; color: green;" mat-tooltip="Add Meal">add</span >
+             </td>
+             </tr>
+            </tbody>
+            </ng-container>
+             </table>
+             <ng-container *ngIf="flight.Meals.length==0">
+              <br><br><h3 style="text-align: center;"><strong>No Meals Available For This Flight</strong></h3>
+           </ng-container>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
