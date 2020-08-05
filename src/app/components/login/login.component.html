@@ -1,3 +1,23 @@
-﻿<div id="loginpage" class="container">
-<p>Login Works</p>
-</div>
+﻿    <div id="logreg-forms">
+        <form [formGroup]="loginForm">
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><b>Sign in</b></h1>
+            <hr>
+            <div class="social-login">
+                <button (click)="SocialLogin('Google');" class="btn google-btn social-btn" type="button"><span><i class="fab fa-google"></i> &nbsp;Sign in with Google</span> </button>
+            </div>
+            <p style="text-align:center"><b> OR  </b></p>
+            <input type="text" id="username" class="form-control" formControlName="username" placeholder="Username" required>
+            <p style="color: red" class="lblError" *ngIf="loginForm.get('username').hasError('required')
+                            && !loginForm.get('username').pristine">
+                    userame is required
+            </p>
+            <br>
+            <input type="password" id="password" class="form-control" formControlName="password" placeholder="Password" required minlength="5">
+            <p style="color: red" class="lblError" *ngIf="loginForm.get('password').hasError('required')
+                            && !loginForm.get('password').pristine">
+                    password is required with min length of 5
+            </p>
+            <br>
+            <button (click)="Login(loginForm)" class="btn btn-success btn-block" [disabled]="loginForm.invalid"> Log in</button>
+            </form>        
+    </div>

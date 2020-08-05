@@ -48,8 +48,7 @@ export class PassengerComponent implements OnInit {
       passenger_DOB: new FormControl(null),
       passenger_addrress: new FormControl(null)
     });
-
-    console.log(this.flight.flight_id);
+    
     this.passengerService.getPassengerDetails().subscribe(response=>{
     this.All_Passenger_Details=response as Passenger[];
     this.displayedColumnsPassenger = ['flight_id','Name','Seat_Number', 'Check_In', 'DOB','Actions'];
@@ -174,7 +173,6 @@ export class PassengerComponent implements OnInit {
     editPassenger.Meal=null;
     editPassenger.Ancillary_Service=null;
     editPassenger.Shopping_Item=null;
-    console.log(editPassenger);
     this.passengerService.updatePassenger(editPassenger);
     Swal.fire(
       'Success',

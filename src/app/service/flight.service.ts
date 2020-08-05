@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore,AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FlightDetails } from '../model/FlightDetails.model';
@@ -15,8 +15,18 @@ export class FlightService {
   constructor(private db: AngularFirestore){ 
   }
 
-  getFlightDetails(){
-    this.flights= this.db.collection<FlightDetails>('flights').snapshotChanges().pipe(map(actions => {
+  getFlightDetails(role:String,username:String){
+    let flightCol : AngularFirestoreCollection=null;
+    if(role=='Admin'){
+      flightCol=this.db.collection<FlightDetails>('flights');
+    }
+    else if(role=='Staff'){
+      console.log(username);
+      flightCol=this.db.collection<FlightDetails>('flights',ref=> {
+        return ref.where('username','==',username)
+      });
+    }
+    this.flights= flightCol.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as FlightDetails;
         const flight_id = a.payload.doc.id;

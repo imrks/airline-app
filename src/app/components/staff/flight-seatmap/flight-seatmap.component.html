@@ -1,0 +1,44 @@
+<div style="text-align: center; padding-top: 10px;">
+    <span style="color: rgb(1,1,1);">
+        <i title="Seat" class="material-icons"  style="cursor: pointer; color:lightgray;">airline_seat_recline_normal</i> <b>: Seat Available |  </b>
+        <i title="Seat" class="material-icons"  style="cursor: pointer; color:gray;">airline_seat_recline_normal</i> <b>: Seat Taken |  </b>
+        <i title="Wheelchair" class="material-icons"  style="cursor: pointer; color:gray;">accessible</i> <b>: Passenger With Wheelchair |  </b>
+        <i title="Meal" class="material-icons"  style="cursor: pointer; color:gray;">room_service</i> <b>: Passenger With Meal |  </b>
+        <i title="Infant" class="material-icons"  style="cursor: pointer; color:gray;">child_friendly</i> <b>: Passenger With Infant</b>
+    </span>
+</div>
+<hr>
+<div>
+<table class="table table-striped">
+    <thead>
+     <tr> 
+     <th> </th>
+     <th>1</th>
+     <th>2</th>
+     <th>3</th>
+     <th>4</th>
+     <th>5</th>
+     <th>6</th>
+     </tr>
+     </thead>
+     <ng-container >
+     <tbody>
+         <ng-container *ngFor="let recipient of map | keyvalue; let i = index;">
+            <tr *ngIf="i%6==0">
+                <td><b>{{ stringRef.fromCharCode('A'.charCodeAt(0)+(i/6)) }} </b></td>
+                <!-- <td *ngFor="let field of row;"> -->
+                <ng-container *ngFor="let item of map | keyvalue; let j = index">
+                <td *ngIf="j >= i && j < i+6">
+                    <i *ngIf="item.value==null" title="{{ item.key }}" class="material-icons"  style="cursor: pointer; color:lightgray;">airline_seat_recline_normal</i>
+                    <i *ngIf="item.value!=null" title="{{ item.key }}" class="material-icons"  style="cursor: pointer; color:Gray;">airline_seat_recline_normal</i>
+                    <i *ngIf="item.value!=null && item.value.Wheelchair==true" title="Wheelchair" class="material-icons"  style="cursor: pointer; color:gray;">accessible</i>
+                    <i *ngIf="item.value!=null && item.value.Meal==true" title="Meal" class="material-icons"  style="cursor: pointer; color:gray;">room_service</i>
+                    <i *ngIf="item.value!=null && item.value.Infant==true" title="Infant" class="material-icons"  style="cursor: pointer; color:gray;">child_friendly</i>
+                </td>
+                </ng-container>
+            </tr>
+    </ng-container>
+    </tbody>
+    </ng-container>
+     </table>
+</div>

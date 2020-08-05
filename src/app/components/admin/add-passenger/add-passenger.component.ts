@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FlightDetails } from 'src/app/model/FlightDetails.model';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material';
 import { Passenger } from '../../../model/Passenger.model'; 
 import { PassengerService } from '../../../service/passenger.service';

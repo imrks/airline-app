@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,14 +20,6 @@ import {
   MatTabsModule
 } from '@angular/material';
 import { FlightsComponent } from './components/flights/flights.component';
-import { PassengerComponent } from './components/admin/passenger/passenger.component';
-import { AdminComponent } from './components/admin/admin.component';
-import { AddPassengerComponent } from './components/admin/add-passenger/add-passenger.component';
-import { FlightServicesComponent } from './components/admin/flight-services/flight-services.component';
-import { StaffComponent } from './components/staff/staff.component';
-import { ManagePassengersComponent } from './components/staff/manage-passengers/manage-passengers.component';
-import { PassengersComponent } from './components/staff/passengers/passengers.component';
-import { PassengerServicesComponent } from './components/staff/manage-passengers/passenger-services/passenger-services.component';
 
 @NgModule({
   declarations: [
@@ -35,18 +28,11 @@ import { PassengerServicesComponent } from './components/staff/manage-passengers
     FooterComponent,
     LoginComponent,
     FlightsComponent,
-    PassengerComponent,
-    AdminComponent,
-    AddPassengerComponent,
-    FlightServicesComponent,
-    StaffComponent,
-    ManagePassengersComponent,
-    PassengersComponent,
-    PassengerServicesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase,'angularfs'),
     AngularFirestoreModule,
     BrowserAnimationsModule,

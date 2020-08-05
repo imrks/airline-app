@@ -11,6 +11,7 @@ export interface FlightDetails {
     Flight_Name: String,
     Ancillary?:Ancillary[],
     Meals?:Meal[],
-    Shopping_Item?:ShoppingItem[]
+    Shopping_Item?:ShoppingItem[],
+    username?: String
   }
   

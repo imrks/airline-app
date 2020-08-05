@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "Passengers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "flight_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "Seat_Number",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

@@ -24,7 +24,7 @@ export class ManagePassengersComponent implements OnInit {
     this.flight=this.passengerService.setFlightDetails();
     this.passengerDetail=this.passengerService.getSelectedPassengerDetails();
     if(this.passengerDetail==undefined || this.flight==undefined){
-      location.pathname = ('');
+      location.pathname = ('flights');
     }
   }
 

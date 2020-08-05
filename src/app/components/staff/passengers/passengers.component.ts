@@ -30,7 +30,6 @@ export class PassengersComponent implements OnInit {
       passenger_wheelchair: new FormControl(null),
       passenger_infants: new FormControl(null)
     });
-    console.log(this.flight.flight_id);
     this.passengerService.getPassengerDetails().subscribe(response=>{
     this.All_Passenger_Details=response as Passenger[];
     this.displayedColumnsPassenger = ['flight_id','Name','Seat_Number', 'Check_In', 'DOB','Actions'];

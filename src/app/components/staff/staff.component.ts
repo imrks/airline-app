@@ -14,14 +14,13 @@ export class StaffComponent implements OnInit {
 
   onNavigate(feature:String){
     this.loadedFeature=feature;
-    console.log(this.loadedFeature);
   }
   constructor(private passengerService:PassengerService) { }
 
   ngOnInit(): void {
     this.flight=this.passengerService.setFlightDetails();
     if(this.flight==undefined){
-      location.pathname = ('');
+      location.pathname = ('flights');
     }
   }
 

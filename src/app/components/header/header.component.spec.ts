@@ -1,25 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HeaderComponent } from './header.component';
+import { BehaviorSubject } from 'rxjs';
+import { AuthService } from 'src/app/service/auth.service';
+import { User } from '../../model/user.model';
 
 describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+  const subjectMock =new BehaviorSubject<User>(null);
+  const mockSubService = {      
+  mockuserSub: subjectMock.asObservable()
+};
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
-    })
-    .compileComponents();
-  }));
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [HeaderComponent],
+        providers: [{ provide: AuthService, useValue: mockSubService }],
+      }).compileComponents();
+    }),
+  );
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('Check the header authentication state', () => {
+    const value:boolean = false;
+    subjectMock
+    .subscribe(res => {
+      expect(!!res).toEqual(value)
+    });
   });
 });
