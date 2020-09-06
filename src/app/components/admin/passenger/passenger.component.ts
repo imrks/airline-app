@@ -85,14 +85,14 @@ export class PassengerComponent implements OnInit {
     if(filterPassenger.value.passenger_DOB){
       if(filterPassenger.value.passenger_DOB==1){
         this.All_Passenger_Details.forEach(element => {
-          if (element.DOB!=null) {
+          if (!element.DOB.toString().includes("(seconds=0")) {
             filteredPassenger.push(element);
           }
         });
       }
       if(filterPassenger.value.passenger_DOB==0){
         this.All_Passenger_Details.forEach(element => {
-          if (element.DOB==null) {
+          if (element.DOB.toString().includes("(seconds=0")) {
             filteredPassenger.push(element);
           }
         });
@@ -101,14 +101,14 @@ export class PassengerComponent implements OnInit {
     if(filterPassenger.value.passenger_addrress){
       if(filterPassenger.value.passenger_addrress==1){
         this.All_Passenger_Details.forEach(element => {
-          if (element.Address!=null) {
+          if (element.Address.length!=0) {
             filteredPassenger.push(element);
           }
         });
       }
       if(filterPassenger.value.passenger_addrress==0){
         this.All_Passenger_Details.forEach(element => {
-          if (element.Address==null) {
+          if (element.Address.length==0) {
             filteredPassenger.push(element);
           }
         });

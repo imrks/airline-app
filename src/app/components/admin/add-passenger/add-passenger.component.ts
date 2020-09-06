@@ -25,8 +25,8 @@ ngOnInit() {
     user_flight_id: new FormControl(this.flight.flight_id),
     name: new FormControl(null, Validators.required),
     user_phone: new FormControl(null, Validators.required),
-    user_addesss: new FormControl(null, Validators.required),
-	user_dob : new FormControl(null, Validators.required),
+    user_addesss: new FormControl(null),
+	user_dob : new FormControl(null),
 	user_infants : new FormControl(false),
 	user_passport : new FormControl(null),
 	user_wheelchair : new FormControl(false),
@@ -54,9 +54,9 @@ ngOnInit() {
     newPassenger.Passport=addPassengerForm.value.user_passport;
     newPassenger.phone=addPassengerForm.value.user_phone;
     newPassenger.Seat_Number=null;
-    newPassenger.Meal=null;
-    newPassenger.Ancillary_Service=null;
-    newPassenger.Shopping_Item=null;
+    newPassenger.Meal=[];
+    newPassenger.Ancillary_Service=[];
+    newPassenger.Shopping_Item=[];
     this.passengerService.addPassengerDetails(newPassenger);
     Swal.fire(
       'Success',

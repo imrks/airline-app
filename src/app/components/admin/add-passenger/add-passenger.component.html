@@ -21,13 +21,9 @@
         </div>
 
         <div class="form-group">
-          <label for="user_addesss">Address: <span class="lblError">*</span></label>
+          <label for="user_addesss">Address: </label>
           <div class="controls">
             <input type="text" id="user_addesss" placeholder="Address" class="form-control" formControlName="user_addesss">
-            <p class="lblError" *ngIf="addPassengerForm.get('user_addesss').hasError('required')
-                        && !addPassengerForm.get('user_addesss').pristine">
-                Address is Required
-            </p>
           </div>
         </div>
 		</div>
@@ -45,12 +41,9 @@
         </div>
         
         <div class="form-group">
-          <label for="phone">Date of Birth <span class="lblError">*</span></label>
+          <label for="phone">Date of Birth </label>
           <div class="controls">
             <input type="date" id="user_dob" placeholder="Date of Birth" class="form-control" formControlName="user_dob">
-            <p class="lblError" *ngIf="addPassengerForm.get('user_dob').hasError('required') && !addPassengerForm.get('user_dob').pristine">
-                DOB is Required
-            </p>
           </div>
         </div>
 		</div>
